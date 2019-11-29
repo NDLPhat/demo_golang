@@ -2,86 +2,54 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/NDLPhat/demo_golang/type_system/student"
 )
 
 // "strconv"
 
 func main() {
-	// 	// Int
-	// 	// aInt := 1
-	// 	// var bInt int
+	a := []string{"a", "b", "c"}
+	b := []string{"1", "2", "3", "4", "5", "6", "7", "8", "9"}
+	mot := append(a, b...)
+	fmt.Println("mot: ", mot)
 
-	// 	// // String
-	// 	// aString := "Hello world"
+	// COPY
+	// c1
+	hai := make([]string, len(mot))
+	copy(hai, mot)
+	// c2
+	hai = append([]string(nil), mot...)
+	fmt.Println("hai: ", hai)
 
-	// 	// // Array/Slice
-	// 	// aSlice := []string{"a", "b", "c"}
+	// CUT
+	fmt.Println(hai[2:], hai[:2])
 
-	// 	// fmt.Printf("bInt = %d \r\n", bInt)
-	// 	// fmt.Printf("aInt = %d \r\n", aInt)
-	// 	// fmt.Printf("aString = %s \r\n", aString)
-	// 	// fmt.Printf("aSlice = %s \r\n", aSlice)
+	// DELETE
+	// idx = 5,6,7
+	ba := append(hai[:5], hai[8:]...)
+	fmt.Println("Ba: ", ba, ba[2:])
 
-	// 	// nSlice := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	// c := ba[:2+copy(ba[2:], ba[7:])]
+	d := append(ba[:2], ba[7:]...)
+	fmt.Println("c: ", d, ba)
 
-	// 	// for slice := range nSlice {
-	// 	// 	if slice >= 5 {
-	// 	// 		fmt.Printf("%d \r\n", slice)
-	// 	// 	}
-	// 	// }
-	// 	// // Map
-	// 	// aMap := map[string]int{"age": 100, "level": 123}
-	// 	// fmt.Println(aMap)
+	//
+	ba[2] = ba[5]
+	fmt.Println(ba[(len(ba) - 4):])
 
-	// 	// // Struct
+	e := append(make([]string, 4), ba[(len(ba)-4):]...)
+	fmt.Println("e: ", e)
 
-	// 	// // s := Student{
-	// 	// // fmt.Println(s)
-	// 	// // fmt.Printf("%+v", s)
-	// 	// s := Student{firstName: "Phat", lastName: "Nguyen", Age: 23, Email: "paht@gmail.com"}
-	// 	// // Interface
-	// 	// // var i interface{}
-	// 	// // // i = s
-	// 	// // fmt.Println("interface", i)
+	values := []string{"ABC", "CAB", "BCA"}
+	factor := []int{100, 10, 1}
 
-	// 	// fmt.Println(s)
-	// 	// // Chanel
-	// 	// ch := make(chan int, 2)
-	// 	// ch <- 1  // write to channel
-	// 	// ch <- 10 // write to channel
-
-	// 	// // fmt.Println(<-ch) // read from channel
-	// 	// // fmt.Println(<-ch) // read from channel
-
-	email1 := student.Student{"1", "2", 3, "old@mail"}
-	email1.SetEmail("new@mail")
-	fmt.Println(email1)
-
-	// 	// cInt := 100
-	// 	// cStr := strconv.Itoa(cInt)
-	// 	// cString := fmt.Sprintf("%d hello", cInt)
-	// 	// fmt.Println(reflect.TypeOf(cStr), reflect.TypeOf(cString), cString)
-
-	// 	// cStrr := "23"
-	// 	// fmt.Println(strconv.ParseInt(cStrr, 10, 64))
-
-	// 	inputJson := `[
-	// 		{"first_name": "Victor", "last_name": "Nguyen", "age": 100, "class_name":"golang"},
-	// 		{"first_name": "Anh", "last_name": "Dinh", "age":200, "class_name":"golang"}
-	// 	]`
-	// 	var out interface{}
-	// 	out.parseJson(inputJson)
-	// 	// in := []byte(inputJson);
-	// 	// err := json.Unmarshal(in, &out);
-
-	// 	// fmt.Printf("%+v", out)
-	// 	// fmt.Println(err, "err")
-	// }
-
-	// func (d interface{}) parseJson(iJson string) error {
-	// 	in := []byte(jJson)
-	// 	err := json.Unmarshal(in, &d)
-	// 	return error.Error("Sdsa")
+	for v := range values {
+		hashKey := 0
+		f := 0
+		bytes := []byte(values[v])
+		for i := range bytes {
+			hashKey += int(bytes[i]) * factor[f]
+			f++
+		}
+		fmt.Println(hashKey)
+	}
 }
